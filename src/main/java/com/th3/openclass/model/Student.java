@@ -1,4 +1,4 @@
-package com.th3.model;
+package com.th3.openclass.model;
 
 import jakarta.persistence.*;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 public class Student
 {
     @Id
-    @Column(name = "apogee_num", nullable = false, updatable = false)
+    @Column(name = "apogee_num")
     private Long apogeeNum;
     @Column(name = "first_name", updatable = false)
     private String firstName;

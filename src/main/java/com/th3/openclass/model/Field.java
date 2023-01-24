@@ -1,4 +1,4 @@
-package com.th3.model;
+package com.th3.openclass.model;
 
 import jakarta.persistence.*;
 
