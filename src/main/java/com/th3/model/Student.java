@@ -5,25 +5,37 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Student")
+@Table(name = "STUDENT", uniqueConstraints = {
+        @UniqueConstraint(name = "email_adress", columnNames = "email_adress")
+})
 public class Student
 {
     @Id
+    @Column(name = "apogee_num", nullable = false, updatable = false)
     private Long apogeeNum;
+    @Column(name = "first_name", updatable = false)
     private String firstName;
+    @Column(name = "last_name", updatable = false)
     private String lastName;
+    @Column(name = "email_adress", updatable = false, unique = true)
     private String email;
+    @Column(name = "age")
     private Integer age;
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+    @Column(name = "birth_date", updatable = false)
     private Date birthDate;
+    @Column(name = "enrol_date", updatable = false)
     private Date enrolDate;
+    @Column(name = "expr_date")
     private Date exprDate;
-
 
     public Student(Long apogeeNum,
                    String firstName,
                    String lastName,
                    String email,
                    Integer age,
+                   String avatarUrl,
                    Date birthDate,
                    Date enrolDate,
                    Date exprDate
@@ -33,9 +45,17 @@ public class Student
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+        this.avatarUrl= avatarUrl;
         this.birthDate = birthDate;
         this.enrolDate = enrolDate;
         this.exprDate = exprDate;
+    }
+
+    public Student(Long apogeeNum, String firstName, String lastName, String email) {
+        this.apogeeNum = apogeeNum;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public Student() {
@@ -64,6 +84,14 @@ public class Student
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getEmail() {
@@ -114,6 +142,7 @@ public class Student
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", avatarUrl='" + avatarUrl + '\'' +
                 ", birthDate=" + birthDate +
                 ", enrolDate=" + enrolDate +
                 ", exprDate=" + exprDate +

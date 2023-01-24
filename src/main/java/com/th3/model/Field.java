@@ -3,11 +3,15 @@ package com.th3.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Field")
+@Table(name = "FIELD", uniqueConstraints = {
+        @UniqueConstraint(name = "id", columnNames = "id")
+})
 public class Field {
     @Id
     private Long id;
+    @Column(name = "field_name", nullable = false, updatable = false)
     private String fieldName;
+    @Column(name = "field_label", nullable = false, updatable = false)
     private String fieldLabel;
 
     public Field(Long id, String fieldName, String fieldLabel) {
