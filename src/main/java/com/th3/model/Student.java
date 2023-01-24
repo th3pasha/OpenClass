@@ -6,7 +6,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Student")
-public class Student {
+public class Student
+{
     @Id
     private Long apogeeNum;
     private String firstName;
