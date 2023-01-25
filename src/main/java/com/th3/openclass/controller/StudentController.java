@@ -27,19 +27,24 @@ public class StudentController {
 
     @PostMapping
     @ApiOperation(value = "API TO CREATE STUDENT")
-    public ResponseEntity<StudentDto> create(@RequestBody final StudentCommand studentCommand){
-        final Student student = studentService.create(studentCommand);
+    public ResponseEntity<StudentDto> create(@RequestBody final StudentCommand studentCommand)
+    {
+        final Student student = studentService.createStudent(studentCommand);
+
         return ResponseEntity.ok(studentMapper.toDto(student));
     }
     @GetMapping("/{studentId}")
     @ApiOperation(value = "API TO GET STUDENT BY ID")
-    public ResponseEntity<StudentDto> getById(@PathVariable("studentId") final String studentId){
+    public ResponseEntity<StudentDto> getById(@PathVariable("studentId") final String studentId)
+    {
         final Student student = studentService.findStudentById(studentId);
+
         return ResponseEntity.ok(studentMapper.toDto(student));
     }
     @GetMapping
     @ApiOperation(value = "API TO GET ALL STUDENTS")
-    public ResponseEntity<Page<StudentDto>> getStudents(Pageable pageable){
+    public ResponseEntity<Page<StudentDto>> getStudents(Pageable pageable)
+    {
         return ResponseEntity.ok(studentService.getStudents(pageable).map(studentMapper::toDto));
     }
 }

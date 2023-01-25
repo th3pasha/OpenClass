@@ -1,4 +1,4 @@
-package com.th3.openclass.security;
+/*package com.th3.openclass.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +9,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig
 {
     @Bean
-    public SecurityFilterChain web(HttpSecurity http) throws Exception
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
-        http.oauth2Login().defaultSuccessUrl("/home", true);
+
+//        http
+//                .oauth2Login()
+//                .defaultSuccessUrl("/v1/student", true);
         return http.build();
     }
 }
+*/

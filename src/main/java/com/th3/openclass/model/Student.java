@@ -11,7 +11,8 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-public class Student extends BaseEntity{
+public class Student extends BaseEntity
+{
 
     @Column(name = "apogee_num")
     private Long apogeeNum;
@@ -21,8 +22,6 @@ public class Student extends BaseEntity{
     private String lastName;
     @Column(name = "email_adress", updatable = false, unique = true)
     private String email;
-    @Column(name = "age")
-    private Integer age;
     @Column(name = "avatar_url")
     private String avatarUrl;
     @Column(name = "birth_date", updatable = false)

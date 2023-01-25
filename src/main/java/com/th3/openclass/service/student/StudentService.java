@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface StudentService {
-    Student create(final StudentCommand studentCommand);
+    Student createStudent(final StudentCommand studentCommand);
     Student findStudentById(String studentId);
     Page<Student> getStudents(Pageable pageable);
 }

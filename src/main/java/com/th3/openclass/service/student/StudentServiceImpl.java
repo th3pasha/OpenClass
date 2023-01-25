@@ -24,10 +24,12 @@ public class StudentServiceImpl implements StudentService{
     private final StudentRepository studentRepository;
 
     @Override
-    public Student create(StudentCommand studentCommand) {
+    public Student createStudent(StudentCommand studentCommand)
+    {
         studentCommand.validate();
         log.info("Begin creating student with payload {}", JSONUtil.toJSON(studentCommand));
         final Student student = studentRepository.save(Student.create(studentCommand));
+
         return student;
     }
 
