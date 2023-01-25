@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/students")
+@RequestMapping
 public class StudentService
 {
     private final StudentRepository studentRepository;
@@ -30,8 +30,19 @@ public class StudentService
         this.studentRepository = studentRepository;
     }
 
-
-    @GetMapping
+//
+//    @GetMapping("/")
+//    public String index()
+//    {
+//        return "index";
+//    }
+//    @PostMapping("/register")
+//    public String studentRegistration(@ModelAttribute Student student)
+//    {
+//        studentRepository.save(student);
+//        return "index";
+//    }
+    @GetMapping("home")
     public List<Student> getStudent()
     {
         return studentRepository.findAll();
@@ -41,17 +52,11 @@ public class StudentService
     public void addStudent(@RequestBody NewStudentRequest newStudentRequest)
     {
         Student student = new Student();
-        student.setApogeeNum(newStudentRequest.apogeeNum);
-        student.setFirstName(newStudentRequest.firstName);
-        student.setLastName(newStudentRequest.lastName);
         student.setEmail(newStudentRequest.email);
-        student.setAge(newStudentRequest.age);
-        student.setAvatarUrl(newStudentRequest.avatarUrl);
-        student.setBirthDate(newStudentRequest.birthDate);
-        student.setEnrolDate(newStudentRequest.enrolDate);
-        student.setExprDate(newStudentRequest.exprDate);
-
         studentRepository.save(student);
     }
+
+
+
 }
 

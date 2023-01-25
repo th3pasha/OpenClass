@@ -7,22 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController()
+@RestController
 public class Controller
 {
     private StudentService studentService;
-
-    @GetMapping
-    public String greet()
-    {
-          return  "Hello";
-    }
-
-    @GetMapping("api/unsecured")
-    public List<Student> getStudents()
-    {
-        return  studentService.getStudent();
-    }
 
 
 }

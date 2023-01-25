@@ -19,8 +19,6 @@ public class Student
     private String lastName;
     @Column(name = "email_adress", updatable = false, unique = true)
     private String email;
-    @Column(name = "age")
-    private Integer age;
     @Column(name = "avatar_url")
     private String avatarUrl;
     @Column(name = "birth_date", updatable = false)
@@ -34,7 +32,6 @@ public class Student
                    String firstName,
                    String lastName,
                    String email,
-                   Integer age,
                    String avatarUrl,
                    Date birthDate,
                    Date enrolDate,
@@ -44,7 +41,6 @@ public class Student
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.age = age;
         this.avatarUrl= avatarUrl;
         this.birthDate = birthDate;
         this.enrolDate = enrolDate;
@@ -102,14 +98,6 @@ public class Student
         this.email = email;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
     public Date getBirthDate() {
         return birthDate;
     }
@@ -141,7 +129,6 @@ public class Student
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", birthDate=" + birthDate +
                 ", enrolDate=" + enrolDate +

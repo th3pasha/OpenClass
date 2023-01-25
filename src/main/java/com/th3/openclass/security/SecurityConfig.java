@@ -13,11 +13,7 @@ public class SecurityConfig
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login();
+        http.oauth2Login().defaultSuccessUrl("/home", true);
         return http.build();
-
     }
 }
