@@ -7,8 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,8 +15,6 @@ import java.util.List;
 @SpringBootApplication()
 public class OpenClassApplication
 {
-    // TODO fix package problem, bean problem
-
     Student student;
 
     public static void main(String[] args)
@@ -27,25 +23,17 @@ public class OpenClassApplication
 
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(@Autowired StudentRepository studentRepository)
-    {
-        return args -> {
-             student = new Student(
-                        211L,
-                    "ayoub",
-                    "azizi",
-                    "email@email.com" );
-             Student student2 = new Student(
-                     2654L,
-                     "younes",
-                     "ouartassi",
-                     "email@cil.com"
-
-             );
-            studentRepository.save(student2);
-            studentRepository.save(student);
-        };
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner(@Autowired StudentRepository studentRepository)
+//    {
+//        return args -> {
+//            student = new Student(
+//                    211L,
+//                    "ayoub",
+//                    "azizi",
+//                    "email@email.com" );
+//            studentRepository.save(student);
+//        };
+//    }
 
 }

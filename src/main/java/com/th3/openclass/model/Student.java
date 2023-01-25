@@ -148,4 +148,15 @@ public class Student
                 ", exprDate=" + exprDate +
                 '}';
     }
+
+    @ManyToOne(optional = true)
+    private Field student;
+
+    public Field getStudent() {
+        return student;
+    }
+
+    public void setStudent(Field student) {
+        this.student = student;
+    }
 }

@@ -2,6 +2,8 @@ package com.th3.openclass.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "FIELD", uniqueConstraints = {
         @UniqueConstraint(name = "id", columnNames = "id")
@@ -57,4 +59,14 @@ public class Field {
                 '}';
     }
 
+    @OneToMany(mappedBy = "student")
+    private Collection<Student> field;
+
+    public Collection<Student> getField() {
+        return field;
+    }
+
+    public void setField(Collection<Student> field) {
+        this.field = field;
+    }
 }
