@@ -11,7 +11,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FieldDto {
+public class FieldDto
+{
     private String fieldName;
     private String fieldLabel;
     private List<StudentDto> students;

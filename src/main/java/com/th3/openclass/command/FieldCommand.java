@@ -9,7 +9,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class FieldCommand {
+public class FieldCommand
+{
     private String fieldName;
     private String fieldLabel;
     private List<StudentCommand> studentCommands;

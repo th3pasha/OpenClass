@@ -35,7 +35,8 @@ public class Student extends BaseEntity{
     @ManyToOne
     private Field field;
 
-    public static Student create(final StudentCommand studentCommand){
+    public static Student create(final StudentCommand studentCommand)
+    {
         final Student student = new Student();
 
         student.email = studentCommand.getEmail();
@@ -87,7 +88,8 @@ public class Student extends BaseEntity{
         }
         return new String(last);
     }
-    public void linkToField(Field field){
+    public void linkToField(Field field)
+    {
         this.field = field;
     }
 }

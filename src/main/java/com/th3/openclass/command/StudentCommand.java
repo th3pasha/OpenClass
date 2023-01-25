@@ -6,7 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StudentCommand {
+public class StudentCommand
+{
     private String email;
 
     public void validate(){
