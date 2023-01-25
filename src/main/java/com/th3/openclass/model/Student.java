@@ -3,8 +3,6 @@ package com.th3.openclass.model;
 import com.th3.openclass.command.StudentCommand;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -14,7 +12,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class Student extends BaseEntity{
-
 
     @Column(name = "apogee_num")
     private Long apogeeNum;
@@ -34,6 +31,9 @@ public class Student extends BaseEntity{
     private Date enrolDate;
     @Column(name = "expr_date")
     private Date exprDate;
+
+    @ManyToOne
+    private Field field;
 
     public static Student create(final StudentCommand studentCommand){
         final Student student = new Student();
@@ -86,5 +86,8 @@ public class Student extends BaseEntity{
             cnt++;
         }
         return new String(last);
+    }
+    public void linkToField(Field field){
+        this.field = field;
     }
 }

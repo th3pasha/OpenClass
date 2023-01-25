@@ -9,7 +9,6 @@ import lombok.Setter;
 public class StudentCommand {
     private String email;
 
-
     public void validate(){
 
     }

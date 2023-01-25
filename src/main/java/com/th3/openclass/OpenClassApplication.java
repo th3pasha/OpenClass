@@ -13,7 +13,6 @@ public class OpenClassApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(OpenClassApplication.class, args);
-
     }
 
 }
