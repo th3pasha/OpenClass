@@ -7,7 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
-public interface FieldService {
+public interface FieldService
+{
     Field addStudentToField(String fieldId, final StudentCommand studentCommand);
     Field findFieldById(String fieldId);
     Field createField(final FieldCommand fieldCommand);

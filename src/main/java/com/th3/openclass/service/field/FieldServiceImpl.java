@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class FieldServiceImpl implements FieldService{
+public class FieldServiceImpl implements FieldService
+{
 
     private final FieldRepository fieldRepository;
 
