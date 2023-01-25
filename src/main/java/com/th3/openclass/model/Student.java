@@ -1,16 +1,21 @@
 package com.th3.openclass.model;
 
+import com.th3.openclass.command.StudentCommand;
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
-@Table(name = "STUDENT", uniqueConstraints = {
-        @UniqueConstraint(name = "email_adress", columnNames = "email_adress")
-})
-public class Student
-{
-    @Id
+@Table(name = "STUDENT")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Setter
+public class Student extends BaseEntity{
+
+
     @Column(name = "apogee_num")
     private Long apogeeNum;
     @Column(name = "first_name", updatable = false)
@@ -30,122 +35,56 @@ public class Student
     @Column(name = "expr_date")
     private Date exprDate;
 
-    public Student(Long apogeeNum,
-                   String firstName,
-                   String lastName,
-                   String email,
-                   Integer age,
-                   String avatarUrl,
-                   Date birthDate,
-                   Date enrolDate,
-                   Date exprDate
-    ) {
-        this.apogeeNum = apogeeNum;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.age = age;
-        this.avatarUrl= avatarUrl;
-        this.birthDate = birthDate;
-        this.enrolDate = enrolDate;
-        this.exprDate = exprDate;
+    public static Student create(final StudentCommand studentCommand){
+        final Student student = new Student();
+
+        student.email = studentCommand.getEmail();
+        student.firstName = getFirstNameFromEmail(studentCommand);
+        student.lastName = getLastNameFromEmail(studentCommand, student.firstName.length());
+        return student;
     }
+    public static String getFirstNameFromEmail(final StudentCommand studentCommand){
+        // anas.abbal20@ump.ac.ma
+        int lengthFirstName = 0;
+        String email = studentCommand.getEmail();
+        for(int i = 0; i < email.length(); i++){
+            if(email.charAt(i) != '.')
+                lengthFirstName++;
+            if(email.charAt(i) == '.'){
+                break;
+            }
+        }
+        // create space address exactly for firstName
+        char[] first = new char[lengthFirstName];
 
-    public Student(Long apogeeNum, String firstName, String lastName, String email) {
-        this.apogeeNum = apogeeNum;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        for(int i = 0; i < lengthFirstName; i++){
+            // init firstName
+            first[i] = email.charAt(i);
+        }
+        return new String(first);
     }
-
-    public Student() {
-
-    }
-
-    public Long getApogeeNum() {
-        return apogeeNum;
-    }
-
-    public void setApogeeNum(Long apogeeNum) {
-        this.apogeeNum = apogeeNum;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public Date getEnrolDate() {
-        return enrolDate;
-    }
-
-    public void setEnrolDate(Date enrolDate) {
-        this.enrolDate = enrolDate;
-    }
-
-    public Date getExprDate() {
-        return exprDate;
-    }
-
-    public void setExprDate(Date exprDate) {
-        this.exprDate = exprDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "apogeeNum=" + apogeeNum +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                ", avatarUrl='" + avatarUrl + '\'' +
-                ", birthDate=" + birthDate +
-                ", enrolDate=" + enrolDate +
-                ", exprDate=" + exprDate +
-                '}';
+    public static String getLastNameFromEmail(final StudentCommand studentCommand, int lengthFirstName){
+        // anas.abbal20@ump.ac.ma
+        int count = 0;
+        // get email from request body
+        final String email = studentCommand.getEmail();
+        // create space address exactly for lastName
+        int lengthLastName = 0;
+        lengthFirstName += 1;
+        for(int i = lengthFirstName; i < email.length() - 1; i++){
+            if(email.charAt(i) != '@'){
+                lengthLastName++;
+            }
+            if(email.charAt(i) == '@')
+                break;
+        }
+        lengthLastName -= 2;
+        int cnt = 0;
+        char[] last = new char[lengthLastName];
+        for(int i = lengthFirstName; i < lengthLastName + lengthFirstName; i++){
+            last[cnt] = email.charAt(i);
+            cnt++;
+        }
+        return new String(last);
     }
 }
