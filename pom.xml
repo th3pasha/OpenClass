@@ -66,14 +66,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        spring.security.oauth2.client.registration.google.clientId=663468336705-svq05ga3jvc7pk6s024gu87t992raqa8.apps.googleusercontent.com
-        spring.security.oauth2.client.registration.google.clientSecret=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
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
