@@ -8,5 +8,6 @@ import org.springframework.data.domain.Pageable;
 public interface StudentService {
     Student createStudent(final StudentCommand studentCommand);
     Student findStudentById(String studentId);
+    Student findStudentByEmail(String studentEmail);
     Page<Student> getStudents(Pageable pageable);
 }

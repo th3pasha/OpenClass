@@ -44,6 +44,15 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public Student findStudentByEmail(String studentEmail)
+    {
+        final Student student = studentRepository.findByEmail(studentEmail).orElseThrow(
+                () -> new BusinessException(ExceptionPayloadFactory.STUDENT_NOT_FOUND.get())
+        );
+        return student;
+    }
+
+    @Override
     public Page<Student> getStudents(Pageable pageable) {
         return studentRepository.findAll(pageable);
     }

@@ -18,11 +18,21 @@ import static com.th3.openclass.constants.ResourcePath.V1;
 
 @RestController
 @RequestMapping(V1 + STUDENT)
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService studentService;
     private final StudentMapper studentMapper;
+
+    @GetMapping("/email/{studentEmail}")
+    @CrossOrigin("*")
+    @ApiOperation(value = "API TO GET STUDENT NAME BY EMAIL")
+    public ResponseEntity<StudentDto> getStudentByEmail(@PathVariable("studentEmail") final String studentEmail)
+    {
+        final Student student = studentService.findStudentByEmail(studentEmail);
+        return ResponseEntity.ok(studentMapper.toDto(student));
+    }
 
 
     @PostMapping
