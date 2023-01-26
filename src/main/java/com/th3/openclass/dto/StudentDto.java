@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-
-
+import java.util.List;
 
 
 @Getter
@@ -21,4 +20,5 @@ public class StudentDto {
     private Integer age;
     private String avatarUrl;
     private Date birthDate;
+    private List<PostDto> posts;
 }

@@ -1,8 +1,6 @@
 package com.th3.openclass.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

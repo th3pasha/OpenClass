@@ -1,7 +1,6 @@
 package com.th3.openclass.dto;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class FieldDto {
+    private String id;
     private String fieldName;
     private String fieldLabel;
     private List<StudentDto> students;

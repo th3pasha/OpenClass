@@ -5,6 +5,7 @@ import com.th3.openclass.command.StudentCommand;
 import com.th3.openclass.exception.BusinessException;
 import com.th3.openclass.exception.ExceptionPayloadFactory;
 import com.th3.openclass.model.Student;
+import com.th3.openclass.repository.PostRepository;
 import com.th3.openclass.repository.StudentRepository;
 import com.th3.openclass.util.JSONUtil;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,10 @@ public class StudentServiceImpl implements StudentService{
 
 
     private final StudentRepository studentRepository;
+    private final PostRepository postRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Student create(StudentCommand studentCommand) {
         studentCommand.validate();
         log.info("Begin creating student with payload {}", JSONUtil.toJSON(studentCommand));
@@ -40,7 +43,6 @@ public class StudentServiceImpl implements StudentService{
         log.info("Student with id {} fetched successfully", studentId);
         return student;
     }
-
     @Override
     public Page<Student> getStudents(Pageable pageable) {
         return studentRepository.findAll(pageable);

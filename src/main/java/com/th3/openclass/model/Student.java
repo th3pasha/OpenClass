@@ -1,9 +1,12 @@
 package com.th3.openclass.model;
 
+import com.th3.openclass.command.PostCommand;
 import com.th3.openclass.command.StudentCommand;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "STUDENT")
@@ -21,6 +24,8 @@ public class Student extends BaseEntity{
     private String lastName;
     @Column(name = "email_adress", updatable = false, unique = true)
     private String email;
+    @Column(name = "PASSWORD")
+    private String password;
     @Column(name = "age")
     private Integer age;
     @Column(name = "avatar_url")
@@ -31,6 +36,8 @@ public class Student extends BaseEntity{
     private Date enrolDate;
     @Column(name = "expr_date")
     private Date exprDate;
+    @OneToMany(mappedBy = "student")
+    private List<Post> posts;
 
     @ManyToOne
     private Field field;
@@ -40,9 +47,10 @@ public class Student extends BaseEntity{
 
         student.email = studentCommand.getEmail();
         student.firstName = getFirstNameFromEmail(studentCommand);
-        student.lastName = getLastNameFromEmail(studentCommand, student.firstName.length());
+        student.lastName = getLastNameFromEmail(studentCommand.getEmail(), student.firstName.length());
         return student;
     }
+
     public static String getFirstNameFromEmail(final StudentCommand studentCommand){
         // anas.abbal20@ump.ac.ma
         int lengthFirstName = 0;
@@ -63,11 +71,9 @@ public class Student extends BaseEntity{
         }
         return new String(first);
     }
-    public static String getLastNameFromEmail(final StudentCommand studentCommand, int lengthFirstName){
+    public static String getLastNameFromEmail(final String email, int lengthFirstName){
         // anas.abbal20@ump.ac.ma
         int count = 0;
-        // get email from request body
-        final String email = studentCommand.getEmail();
         // create space address exactly for lastName
         int lengthLastName = 0;
         lengthFirstName += 1;
@@ -86,6 +92,13 @@ public class Student extends BaseEntity{
             cnt++;
         }
         return new String(last);
+    }
+    public Post addToStudent(final PostCommand postCommand){
+        final Post post = Post.create(postCommand);
+
+        post.linkToStudent(this);
+        this.posts.add(post);
+        return post;
     }
     public void linkToField(Field field){
         this.field = field;

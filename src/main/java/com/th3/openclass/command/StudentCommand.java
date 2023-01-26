@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class StudentCommand {
     private String email;
+    private String password;
 
     public void validate(){
 
