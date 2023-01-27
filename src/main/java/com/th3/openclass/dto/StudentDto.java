@@ -18,6 +18,7 @@ public class StudentDto {
     private String lastName;
     private String email;
     private Integer age;
+    private String password;
     private String avatarUrl;
     private Date birthDate;
     private List<PostDto> posts;

@@ -64,12 +64,11 @@ public class AccountServiceImpl implements AccountService{
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        final String token = tokenHandler.generateToken(authentication);
+        final String token = tokenHandler.generateToken(userDetails);
         log.info("token : {}", token);
         log.info("authority {}", userDetails.getAuthorities());
         return new JwtResponse(base.getUserId(), token, base.getUsername(), roles);
     }
-
     @Override
     public Account getProfile() {
         return null;

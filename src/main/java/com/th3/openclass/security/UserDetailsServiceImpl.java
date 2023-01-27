@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        final Account account = accountRepository.findAccountByStudentEmail(email).orElseThrow(
+        final Account account = accountRepository.findByStudentEmail(email).orElseThrow(
                 () -> new BusinessException(ExceptionPayloadFactory.STUDENT_NOT_FOUND.get())
         );
         return UserDetailsImpl.build(account);
