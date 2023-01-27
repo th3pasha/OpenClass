@@ -34,7 +34,6 @@ public class StudentController {
         return ResponseEntity.ok(studentMapper.toDto(student));
     }
 
-
     @PostMapping
     @ApiOperation(value = "API TO CREATE STUDENT")
     public ResponseEntity<StudentDto> create(@RequestBody final StudentCommand studentCommand)
