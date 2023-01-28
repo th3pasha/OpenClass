@@ -7,7 +7,6 @@ import com.th3.openclass.dto.FieldDto;
 import com.th3.openclass.dto.mapper.FieldMapper;
 import com.th3.openclass.model.Field;
 import com.th3.openclass.service.field.FieldService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +26,6 @@ public class FieldController {
 
 
     @PostMapping("/{fieldId}" + STUDENT)
-    @ApiOperation(value = "API TO ADD STUDENT TO SOME FIELD WITH ID")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<FieldDto> addToField(@PathVariable("fieldId") final String fieldId,
                                                @RequestBody final StudentCommand studentCommand){
@@ -35,7 +33,6 @@ public class FieldController {
         return ResponseEntity.ok(fieldMapper.toDto(field));
     }
     @PostMapping
-    @ApiOperation(value = "API TO CREATE A FIELD")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<FieldDto> createField(@RequestBody final FieldCommand fieldCommand){
         final Field field = fieldService.createField(fieldCommand);

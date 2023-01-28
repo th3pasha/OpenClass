@@ -28,14 +28,12 @@ public class StudentController {
 
 
     @PostMapping
-    @ApiOperation(value = "API TO CREATE STUDENT")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StudentDto> create(@RequestBody final StudentCommand studentCommand){
         final Student student = studentService.create(studentCommand);
         return ResponseEntity.ok(studentMapper.toDto(student));
     }
     @GetMapping("/{studentId}")
-    @ApiOperation(value = "API TO GET STUDENT BY ID")
     public ResponseEntity<StudentDto> getById(@PathVariable("studentId") final String studentId){
         final Student student = studentService.findStudentById(studentId);
         return ResponseEntity.ok(studentMapper.toDto(student));
@@ -47,7 +45,6 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudents(pageable).map(studentMapper::toDto));
     }
     @PutMapping("/{studentId}")
-    @ApiOperation(value = "API TO UPDATE STUDENT WITH ID")
     @PreAuthorize("hasRole('ADMIN') or #studentId == authentication.principal.studentId")
     public ResponseEntity<StudentDto> update(@PathVariable("studentId") final String studentId,
                                              @RequestBody final StudentUpdateCommand studentUpdateCommand){

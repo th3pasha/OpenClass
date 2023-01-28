@@ -1,32 +1,29 @@
 package com.th3.openclass.config;
 
 
-import com.th3.openclass.security.AuthEntryPointJwt;
 import com.th3.openclass.security.UserAuthenticationFilter;
 import com.th3.openclass.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.security.interfaces.RSAPublicKey;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
+@EnableSwagger2
 public class JavaConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -37,7 +34,7 @@ public class JavaConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/v1/auth/**")
+                .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -48,6 +45,13 @@ public class JavaConfig {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+    // Ignoring SWAGGER
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        return (web) -> web.ignoring().requestMatchers("/v2/api-docs",
+                "/swagger-resources/**",
+                "/swagger-ui.html");
     }
     @Bean
     AuthenticationProvider authenticationProvider() {
