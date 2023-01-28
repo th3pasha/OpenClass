@@ -4,7 +4,7 @@
 SSH: git@github.com:th3pasha/OpenClass.git
 HTTPS: https://github.com/th3pasha/OpenClass.git
 cd OpenClass
-mvn clean compile
+mvn clean install compile
 mvn spring-boot:run
 ```
 
