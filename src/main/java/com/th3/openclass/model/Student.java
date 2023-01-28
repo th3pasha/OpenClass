@@ -2,6 +2,7 @@ package com.th3.openclass.model;
 
 import com.th3.openclass.command.PostCommand;
 import com.th3.openclass.command.StudentCommand;
+import com.th3.openclass.command.StudentUpdateCommand;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -50,7 +51,11 @@ public class Student extends BaseEntity{
         student.lastName = getLastNameFromEmail(studentCommand.getEmail(), student.firstName.length());
         return student;
     }
-
+    public void update(final StudentUpdateCommand studentUpdateCommand){
+        this.firstName = studentUpdateCommand.getFirstName();
+        this.lastName = studentUpdateCommand.getLastName();
+        this.avatarUrl = studentUpdateCommand.getAvatarUrl();
+    }
     public static String getFirstNameFromEmail(final StudentCommand studentCommand){
         // anas.abbal20@ump.ac.ma
         int lengthFirstName = 0;

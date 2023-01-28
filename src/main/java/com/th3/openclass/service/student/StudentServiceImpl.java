@@ -2,6 +2,7 @@ package com.th3.openclass.service.student;
 
 
 import com.th3.openclass.command.StudentCommand;
+import com.th3.openclass.command.StudentUpdateCommand;
 import com.th3.openclass.exception.BusinessException;
 import com.th3.openclass.exception.ExceptionPayloadFactory;
 import com.th3.openclass.model.Student;
@@ -43,6 +44,16 @@ public class StudentServiceImpl implements StudentService{
         log.info("Student with id {} fetched successfully", studentId);
         return student;
     }
+
+    @Override
+    public Student updateInfo(String studentId, StudentUpdateCommand updateCommand) {
+        final Student student = findStudentById(studentId);
+        log.info("Begin updating student with id {} with payload {}", studentId, JSONUtil.toJSON(updateCommand));
+        updateCommand.validate();
+        student.update(updateCommand);
+        return studentRepository.save(student);
+    }
+
     @Override
     public Page<Student> getStudents(Pageable pageable) {
         return studentRepository.findAll(pageable);

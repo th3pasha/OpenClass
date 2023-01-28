@@ -7,5 +7,6 @@ import com.th3.openclass.payload.JwtResponse;
 public interface AccountService {
     Account register(StudentCommand studentCommand);
     JwtResponse login(StudentCommand studentCommand);
+    Account findByEmail(String email);
     Account getProfile();
 }

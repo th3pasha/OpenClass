@@ -24,7 +24,7 @@ public class Account extends BaseEntity{
     public static Account create(final Student student){
         final Account account = new Account();
         account.student = student;
-        account.role = Role.ADMIN;
+        account.role = Role.USER;
 
         return account;
     }

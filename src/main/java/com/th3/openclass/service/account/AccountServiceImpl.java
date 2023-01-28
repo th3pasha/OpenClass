@@ -2,6 +2,8 @@ package com.th3.openclass.service.account;
 
 
 import com.th3.openclass.command.StudentCommand;
+import com.th3.openclass.exception.BusinessException;
+import com.th3.openclass.exception.ExceptionPayloadFactory;
 import com.th3.openclass.model.Account;
 import com.th3.openclass.model.Student;
 import com.th3.openclass.payload.JwtResponse;
@@ -71,6 +73,16 @@ public class AccountServiceImpl implements AccountService{
     }
     @Override
     public Account getProfile() {
-        return null;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+
+        String email = userDetails.getUsername();
+        return findByEmail(email);
+    }
+    @Override
+    public Account findByEmail(String email){
+        return accountRepository.findByStudentEmail(email).orElseThrow(
+                () -> new BusinessException(ExceptionPayloadFactory.ACCOUNT_NOT_FOUND.get())
+        );
     }
 }

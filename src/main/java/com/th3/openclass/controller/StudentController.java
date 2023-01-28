@@ -2,6 +2,7 @@ package com.th3.openclass.controller;
 
 
 import com.th3.openclass.command.StudentCommand;
+import com.th3.openclass.command.StudentUpdateCommand;
 import com.th3.openclass.dto.StudentDto;
 import com.th3.openclass.dto.mapper.StudentMapper;
 import com.th3.openclass.model.Student;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.th3.openclass.constants.ResourcePath.STUDENT;
@@ -27,6 +29,7 @@ public class StudentController {
 
     @PostMapping
     @ApiOperation(value = "API TO CREATE STUDENT")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StudentDto> create(@RequestBody final StudentCommand studentCommand){
         final Student student = studentService.create(studentCommand);
         return ResponseEntity.ok(studentMapper.toDto(student));
@@ -39,7 +42,16 @@ public class StudentController {
     }
     @GetMapping
     @ApiOperation(value = "API TO GET ALL STUDENTS")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<StudentDto>> getStudents(Pageable pageable){
         return ResponseEntity.ok(studentService.getStudents(pageable).map(studentMapper::toDto));
+    }
+    @PutMapping("/{studentId}")
+    @ApiOperation(value = "API TO UPDATE STUDENT WITH ID")
+    @PreAuthorize("hasRole('ADMIN') or #studentId == authentication.principal.studentId")
+    public ResponseEntity<StudentDto> update(@PathVariable("studentId") final String studentId,
+                                             @RequestBody final StudentUpdateCommand studentUpdateCommand){
+        final Student student = studentService.updateInfo(studentId, studentUpdateCommand);
+        return ResponseEntity.ok(studentMapper.toDto(student));
     }
 }
