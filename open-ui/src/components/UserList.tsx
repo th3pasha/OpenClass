@@ -8,9 +8,9 @@ const UserList: React.FC = () => {
 
     const getAllStudents = () => {
         userService.getAllUsers()
-            .then((resposne : any) => {
+            .then((response : any) => {
                 setUsers(user => [...user]);
-                console.log(resposne.data);
+                console.log(response.data);
             }).catch((e: Error) => {
                 console.log(e);
         });
