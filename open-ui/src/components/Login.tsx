@@ -23,15 +23,17 @@ const Login: React.FC = () => {
             email: account.email,
             password: account.password
         };
-        authService.register(data)
+        authService.login(data)
             .then((response : any ) => {
                 setAccount({
                     email: response.data.email,
                     password: response.data.password
                 });
+                localStorage.setItem("account", response.data);
             }).catch((e: Error) => {
             console.log(e);
         });
+
     };
 
     return (

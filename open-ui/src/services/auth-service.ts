@@ -1,14 +1,15 @@
 import AccountCommand from "../types/auth";
-import httpCommon from "../core/http-common";
+import http from "../core/http-common";
 import ApiRoutes from "../core/ApiRoutes";
 
 
 const register = (payload: AccountCommand) => {
-    return httpCommon.post(ApiRoutes.register, payload);
+    console.log(payload);
+    return http.post<AccountCommand>(ApiRoutes.register, payload);
 }
 
 const login = (payload: AccountCommand) => {
-    return httpCommon.post(ApiRoutes.login, payload);
+    return http.post(ApiRoutes.login, payload);
 }
 
 const authService = {
