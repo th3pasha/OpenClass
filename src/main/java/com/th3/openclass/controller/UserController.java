@@ -23,9 +23,10 @@ import static com.th3.openclass.constants.ResourcePath.*;
 @RequestMapping(V1 + AUTH + GROUPCHAT)
 @CrossOrigin("*")
 @RequiredArgsConstructor
-public class UserController {
-    private static String CHAT_ENGINE_PROJECT_ID = "1e32be80-7c8b-47bb-9d8c-1b079b307dcd";
+public class UserController
+{
     private static String CHAT_ENGINE_PRIVATE_KEY = "ed9c1d4a-4d3f-431f-af39-9e2ddc4ea716";
+    private static String CHAT_ENGINE_PROJECT_ID = "1e32be80-7c8b-47bb-9d8c-1b079b307dcd";
 
     @PostMapping(LOGIN)
     public ResponseEntity getLogin(@RequestBody HashMap<String, String> request) {
