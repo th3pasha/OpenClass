@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.th3.openclass.constants.ResourcePath.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 @RequestMapping(V1 + AUTH)
 @RequiredArgsConstructor
 public class AuthController {
@@ -24,6 +24,12 @@ public class AuthController {
 
     @PostMapping(REGISTER)
     public ResponseEntity<AccountDto> register(@RequestBody final StudentCommand studentCommand){
+        return ResponseEntity.ok(accountMapper.toDto(accountService.register(studentCommand)));
+    }
+
+    // TODO FOR UPDATE USER INFO
+    @PostMapping(REGISTER + UPDATE)
+    public ResponseEntity<AccountDto> regUpdate(@RequestBody final StudentCommand studentCommand){
         return ResponseEntity.ok(accountMapper.toDto(accountService.register(studentCommand)));
     }
     @PostMapping(LOGIN)

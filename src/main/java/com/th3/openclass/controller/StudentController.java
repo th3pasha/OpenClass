@@ -20,6 +20,7 @@ import static com.th3.openclass.constants.ResourcePath.V1;
 
 @RestController
 @RequestMapping(V1 + STUDENT)
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class StudentController {
 

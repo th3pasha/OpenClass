@@ -1,6 +1,7 @@
 package com.th3.openclass.constants;
 
-public class ResourcePath {
+public class ResourcePath
+{
 
     /**
      * Resource Path for Controller
@@ -13,4 +14,8 @@ public class ResourcePath {
     public final static String LOGIN = "/login";
     public final static String AUTH = "/auth";
     public final static String PROFILE = "/profile";
+
+    public final static String UPDATE = "/update";
+    public final static String GROUPCHAT = "/groupchat";
+
 }
