@@ -1,7 +1,10 @@
 package com.th3.openclass.service.account;
 
 
+import com.th3.openclass.command.EmailCommand;
 import com.th3.openclass.command.StudentCommand;
+import com.th3.openclass.command.StudentUpdateCommand;
+import com.th3.openclass.dto.mapper.StudentMapper;
 import com.th3.openclass.exception.BusinessException;
 import com.th3.openclass.exception.ExceptionPayloadFactory;
 import com.th3.openclass.model.Account;
@@ -33,11 +36,16 @@ import java.util.stream.Collectors;
 @Slf4j
 @Transactional
 public class AccountServiceImpl implements AccountService{
+    private final StudentMapper studentMapper;
 
     private final AccountRepository accountRepository;
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenHandler tokenHandler;
+    private Student student;
+
+    private StudentCommand studentCommand;
+    private EmailCommand emailCommand;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsServiceImpl userDetailsService;
 
@@ -47,6 +55,8 @@ public class AccountServiceImpl implements AccountService{
         log.info("Begin creating student with payload {}", JSONUtil.toJSON(studentCommand));
         final Student student = studentRepository.save(Student.create(studentCommand));
         student.setPassword(passwordEncoder.encode(studentCommand.getPassword()));
+        student.setAvatarUrl(studentCommand.getAvatarUrl());
+        student.setAge(Integer.valueOf(studentCommand.getAge()));
         final Account account = accountRepository.save(Account.create(student));
         return account;
     }
@@ -71,6 +81,26 @@ public class AccountServiceImpl implements AccountService{
         log.info("authority {}", userDetails.getAuthorities());
         return new JwtResponse(base.getUserId(), token, base.getUsername(), roles);
     }
+
+    @Override
+    public EmailCommand checkEmail(String email)
+    {
+        emailCommand = new EmailCommand();
+        student = new Student();
+
+        student.setFirstName(Student.getFirstNameFromEmail(email));
+        student.setLastName(Student.getLastNameFromEmail(email, student.getFirstName().length()));
+        emailCommand.setFirstName(student.getFirstName());
+        emailCommand.setLastName(student.getLastName());
+
+        return emailCommand;
+    }
+
+    @Override
+    public Account update(StudentUpdateCommand studentUpdateCommand) {
+        return null;
+    }
+
     @Override
     public Account getProfile() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()

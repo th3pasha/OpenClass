@@ -15,11 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import static com.th3.openclass.constants.ResourcePath.STUDENT;
-import static com.th3.openclass.constants.ResourcePath.V1;
+import static com.th3.openclass.constants.ResourcePath.*;
 
 @RestController
-@RequestMapping(V1 + STUDENT)
+@RequestMapping(V1 + AUTH + STUDENT)
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class StudentController {
@@ -41,7 +40,6 @@ public class StudentController {
     }
     @GetMapping
     @ApiOperation(value = "API TO GET ALL STUDENTS")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<StudentDto>> getStudents(Pageable pageable){
         return ResponseEntity.ok(studentService.getStudents(pageable).map(studentMapper::toDto));
     }

@@ -11,8 +11,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "STUDENT")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Student extends BaseEntity{
@@ -47,7 +47,7 @@ public class Student extends BaseEntity{
         final Student student = new Student();
 
         student.email = studentCommand.getEmail();
-        student.firstName = getFirstNameFromEmail(studentCommand);
+        student.firstName = getFirstNameFromEmailStudentCommand(studentCommand);
         student.lastName = getLastNameFromEmail(studentCommand.getEmail(), student.firstName.length());
         return student;
     }
@@ -56,7 +56,26 @@ public class Student extends BaseEntity{
         this.lastName = studentUpdateCommand.getLastName();
         this.avatarUrl = studentUpdateCommand.getAvatarUrl();
     }
-    public static String getFirstNameFromEmail(final StudentCommand studentCommand){
+    public static String getFirstNameFromEmail(final String email){
+        // anas.abbal20@ump.ac.ma
+        int lengthFirstName = 0;
+        for(int i = 0; i < email.length(); i++){
+            if(email.charAt(i) != '.')
+                lengthFirstName++;
+            if(email.charAt(i) == '.'){
+                break;
+            }
+        }
+        // create space address exactly for firstName
+        char[] first = new char[lengthFirstName];
+
+        for(int i = 0; i < lengthFirstName; i++){
+            // init firstName
+            first[i] = email.charAt(i);
+        }
+        return new String(first);
+    }
+    public static String getFirstNameFromEmailStudentCommand(final StudentCommand studentCommand){
         // anas.abbal20@ump.ac.ma
         int lengthFirstName = 0;
         String email = studentCommand.getEmail();

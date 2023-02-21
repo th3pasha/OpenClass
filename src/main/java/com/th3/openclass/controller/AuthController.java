@@ -1,7 +1,9 @@
 package com.th3.openclass.controller;
 
 
+import com.th3.openclass.command.EmailCommand;
 import com.th3.openclass.command.StudentCommand;
+import com.th3.openclass.command.StudentUpdateCommand;
 import com.th3.openclass.dto.AccountDto;
 import com.th3.openclass.dto.mapper.AccountMapper;
 import com.th3.openclass.payload.JwtResponse;
@@ -21,7 +23,10 @@ public class AuthController {
     private final AccountService accountService;
     private final AccountMapper accountMapper;
 
-
+    @PostMapping("/email")
+    public ResponseEntity<EmailCommand> checkEmail(@RequestBody StudentCommand studentCommand) {
+        return ResponseEntity.ok(accountMapper.toDto(accountService.checkEmail(studentCommand.getEmail())));
+    }
     @PostMapping(REGISTER)
     public ResponseEntity<AccountDto> register(@RequestBody final StudentCommand studentCommand){
         return ResponseEntity.ok(accountMapper.toDto(accountService.register(studentCommand)));
@@ -29,8 +34,8 @@ public class AuthController {
 
     // TODO FOR UPDATE USER INFO
     @PostMapping(REGISTER + UPDATE)
-    public ResponseEntity<AccountDto> regUpdate(@RequestBody final StudentCommand studentCommand){
-        return ResponseEntity.ok(accountMapper.toDto(accountService.register(studentCommand)));
+    public ResponseEntity<AccountDto> regUpdate(@RequestBody final StudentUpdateCommand studentUpdateCommand){
+        return ResponseEntity.ok(accountMapper.toDto(accountService.update(studentUpdateCommand)));
     }
     @PostMapping(LOGIN)
     public ResponseEntity<JwtResponse> login(@RequestBody final StudentCommand studentCommand){

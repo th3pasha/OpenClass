@@ -6,7 +6,8 @@ import com.th3.openclass.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface StudentService {
+public interface StudentService
+{
     Student create(final StudentCommand studentCommand);
     Student findStudentById(String studentId);
     Page<Student> getStudents(Pageable pageable);

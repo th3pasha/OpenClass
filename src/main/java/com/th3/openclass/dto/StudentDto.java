@@ -12,7 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class StudentDto {
+public class StudentDto
+{
     private String id;
     private String firstName;
     private String lastName;

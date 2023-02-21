@@ -6,9 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StudentCommand {
+public class StudentCommand
+{
     private String email;
     private String password;
+    private String age;
+    private String avatarUrl;
 
     public void validate(){
 
