@@ -7,6 +7,7 @@ import com.th3.openclass.command.StudentUpdateCommand;
 import com.th3.openclass.dto.AccountDto;
 import com.th3.openclass.dto.mapper.AccountMapper;
 import com.th3.openclass.payload.JwtResponse;
+import com.th3.openclass.repository.AccountRepository;
 import com.th3.openclass.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,15 @@ public class AuthController {
 
     private final AccountService accountService;
     private final AccountMapper accountMapper;
+    private final AccountRepository accountRepository;
 
     @PostMapping("/email")
     public ResponseEntity<EmailCommand> checkEmail(@RequestBody StudentCommand studentCommand) {
         return ResponseEntity.ok(accountMapper.toDto(accountService.checkEmail(studentCommand.getEmail())));
+//        if (accountService.findByEmail(studentCommand.getEmail()).getStudent().getEmail().equals(studentCommand.getEmail()))
+//            return ;
+//        else
+//            return null;
     }
     @PostMapping(REGISTER)
     public ResponseEntity<AccountDto> register(@RequestBody final StudentCommand studentCommand){

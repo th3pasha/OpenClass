@@ -4,6 +4,7 @@ package com.th3.openclass.service.account;
 import com.th3.openclass.command.EmailCommand;
 import com.th3.openclass.command.StudentCommand;
 import com.th3.openclass.command.StudentUpdateCommand;
+import com.th3.openclass.dto.mapper.AccountMapper;
 import com.th3.openclass.dto.mapper.StudentMapper;
 import com.th3.openclass.exception.BusinessException;
 import com.th3.openclass.exception.ExceptionPayloadFactory;
@@ -36,6 +37,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Transactional
 public class AccountServiceImpl implements AccountService{
+    private final AccountMapper accountMapper;
     private final StudentMapper studentMapper;
 
     private final AccountRepository accountRepository;
@@ -85,15 +87,19 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public EmailCommand checkEmail(String email)
     {
-        emailCommand = new EmailCommand();
-        student = new Student();
+        if(studentRepository.existsByEmail(email))
+            throw new BusinessException(ExceptionPayloadFactory.ACCOUNT_EXISTS.get());
+        else
+        {
+            emailCommand = new EmailCommand();
+            student = new Student();
+            student.setFirstName(Student.getFirstNameFromEmail(email));
+            student.setLastName(Student.getLastNameFromEmail(email, student.getFirstName().length()));
+            emailCommand.setFirstName(student.getFirstName());
+            emailCommand.setLastName(student.getLastName());
 
-        student.setFirstName(Student.getFirstNameFromEmail(email));
-        student.setLastName(Student.getLastNameFromEmail(email, student.getFirstName().length()));
-        emailCommand.setFirstName(student.getFirstName());
-        emailCommand.setLastName(student.getLastName());
-
-        return emailCommand;
+            return emailCommand;
+        }
     }
 
     @Override
@@ -110,7 +116,7 @@ public class AccountServiceImpl implements AccountService{
         return findByEmail(email);
     }
     @Override
-    public Account findByEmail(String email){
+    public Account findByEmail(String email) {
         return accountRepository.findByStudentEmail(email).orElseThrow(
                 () -> new BusinessException(ExceptionPayloadFactory.ACCOUNT_NOT_FOUND.get())
         );

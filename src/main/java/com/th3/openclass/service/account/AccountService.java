@@ -15,5 +15,6 @@ public interface AccountService {
     Account update(StudentUpdateCommand studentUpdateCommand);
 
     Account findByEmail(String email);
+
     Account getProfile();
 }
