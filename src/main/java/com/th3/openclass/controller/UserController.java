@@ -33,11 +33,11 @@ public class UserController
         HttpURLConnection con = null;
         try {
             // Create GET request
-            URL url = new URL("https://api.chatengine.io/users/me");
+            URL url = new URL("");
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             // Set headers
-            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Content-Type", "application/jshttps://api.chatengine.io/users/meon");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Project-ID", CHAT_ENGINE_PROJECT_ID);
             con.setRequestProperty("User-Name", request.get("username"));

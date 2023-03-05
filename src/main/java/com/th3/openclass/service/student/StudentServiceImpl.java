@@ -55,7 +55,8 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Page<Student> getStudents(Pageable pageable) {
+    public Page<Student> getStudents(Pageable pageable)
+    {
         return studentRepository.findAll(pageable);
     }
 }

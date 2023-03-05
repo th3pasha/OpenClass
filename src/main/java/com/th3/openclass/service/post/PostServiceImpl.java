@@ -11,11 +11,17 @@ import com.th3.openclass.repository.StudentRepository;
 import com.th3.openclass.util.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
@@ -29,6 +35,14 @@ public class PostServiceImpl implements PostService{
         );
         log.info("Begin add post with payload {} from student with id {}", JSONUtil.toJSON(postCommand) ,studentId);
         final Post post = student.addToStudent(postCommand);
-        return postRepository.save(post);
+        postRepository.save(post);
+        return post;
     }
+
+    @Override
+    public Page<Post> getPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
+    }
+
+
 }
