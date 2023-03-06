@@ -15,10 +15,10 @@ import java.util.List;
 public class StudentDto
 {
     private String id;
+    private Long apogeeNum;
     private String firstName;
     private String lastName;
     private String email;
-    private Integer age;
     private String password;
     private String avatarUrl;
     private Date birthDate;

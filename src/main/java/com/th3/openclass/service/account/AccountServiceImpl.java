@@ -58,7 +58,7 @@ public class AccountServiceImpl implements AccountService{
         final Student student = studentRepository.save(Student.create(studentCommand));
         student.setPassword(passwordEncoder.encode(studentCommand.getPassword()));
         student.setAvatarUrl(studentCommand.getAvatarUrl());
-        student.setAge(Integer.valueOf(studentCommand.getAge()));
+        student.setBirthDate(studentCommand.getBirthDate());
         final Account account = accountRepository.save(Account.create(student));
         return account;
     }

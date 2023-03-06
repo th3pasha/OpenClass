@@ -28,14 +28,14 @@ public class OpenClassApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        final StudentCommand studentCommand = new StudentCommand();
-//        studentCommand.setEmail("anas.abbal20@ump.ac.ma");
-//        studentCommand.setPassword("anas123");
-//        final Student student = Student.create(studentCommand);
-//        studentRepository.save(student);
-//
-//        final Account account = Account.create(student);
-//        account.setRole(Role.ADMIN);
-//        accountRepository.save(account);
+        final StudentCommand studentCommand = new StudentCommand();
+        studentCommand.setEmail("admin@ump.ac.ma");
+        studentCommand.setPassword("123456789");
+        final Student student = Student.create(studentCommand);
+        studentRepository.save(student);
+
+        final Account account = Account.create(student);
+        account.setRole(Role.USER);
+        accountRepository.save(account);
     }
 }

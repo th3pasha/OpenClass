@@ -27,8 +27,6 @@ public class Student extends BaseEntity{
     private String email;
     @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "age")
-    private Integer age;
     @Column(name = "avatar_url")
     private String avatarUrl;
     @Column(name = "birth_date", updatable = false)
@@ -47,6 +45,7 @@ public class Student extends BaseEntity{
         final Student student = new Student();
 
         student.email = studentCommand.getEmail();
+        student.apogeeNum = studentCommand.getApogeeNum();
         student.firstName = getFirstNameFromEmailStudentCommand(studentCommand);
         student.lastName = getLastNameFromEmail(studentCommand.getEmail(), student.firstName.length());
         return student;
