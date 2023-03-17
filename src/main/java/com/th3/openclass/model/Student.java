@@ -6,8 +6,13 @@ import com.th3.openclass.command.StudentUpdateCommand;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+
+import static java.time.LocalTime.parse;
 
 @Entity
 @Table(name = "STUDENT")
@@ -41,14 +46,17 @@ public class Student extends BaseEntity{
     @ManyToOne
     private Field field;
 
-    public static Student create(final StudentCommand studentCommand){
+    public static Student create(final StudentCommand studentCommand) {
         final Student student = new Student();
 
         student.email = studentCommand.getEmail();
         student.apogeeNum = studentCommand.getApogeeNum();
+        student.birthDate = studentCommand.getBirthDate();
         student.firstName = getFirstNameFromEmailStudentCommand(studentCommand);
         student.lastName = getLastNameFromEmail(studentCommand.getEmail(), student.firstName.length());
+
         return student;
+
     }
     public void update(final StudentUpdateCommand studentUpdateCommand){
         this.firstName = studentUpdateCommand.getFirstName();

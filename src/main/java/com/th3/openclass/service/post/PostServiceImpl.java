@@ -40,8 +40,19 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Page<Post> getPosts(Pageable pageable) {
+    public Page<Post> getPosts(Pageable pageable)
+    {
         return postRepository.findAll(pageable);
+    }
+
+    @Override
+    public Student getStudent(String postId)
+    {
+        final Post post = postRepository.findById(postId).orElseThrow(
+                () -> new BusinessException(ExceptionPayloadFactory.POST_NOT_FOUND.get())
+        );
+        final Student student = post.getStudent();
+        return student;
     }
 
 

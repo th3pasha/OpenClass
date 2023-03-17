@@ -1,6 +1,7 @@
 package com.th3.openclass.dto;
 
 
+import com.th3.openclass.model.Student;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

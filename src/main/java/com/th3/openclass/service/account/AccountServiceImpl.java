@@ -56,9 +56,9 @@ public class AccountServiceImpl implements AccountService{
         studentCommand.validate();
         log.info("Begin creating student with payload {}", JSONUtil.toJSON(studentCommand));
         final Student student = studentRepository.save(Student.create(studentCommand));
-        student.setPassword(passwordEncoder.encode(studentCommand.getPassword()));
-        student.setAvatarUrl(studentCommand.getAvatarUrl());
-        student.setBirthDate(studentCommand.getBirthDate());
+        // removed password encoding openchat fix.
+         student.setPassword(passwordEncoder.encode(studentCommand.getPassword()));
+//        student.setPassword(studentCommand.getPassword());
         final Account account = accountRepository.save(Account.create(student));
         return account;
     }
@@ -67,6 +67,7 @@ public class AccountServiceImpl implements AccountService{
     public JwtResponse login(StudentCommand studentCommand) {
         // If the authentication process is successful,
         // we can get Users information such as email, password, authorities from an Authentication
+
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(studentCommand.getEmail(), studentCommand.getPassword()));
 

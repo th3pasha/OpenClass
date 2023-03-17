@@ -20,24 +20,23 @@ import com.google.gson.reflect.TypeToken;
 import static com.th3.openclass.constants.ResourcePath.*;
 
 @RestController
-@RequestMapping(V1 + AUTH + GROUPCHAT)
+@RequestMapping(V1 + AUTH + OPENCHAT)
 @CrossOrigin("*")
 @RequiredArgsConstructor
-public class UserController
-{
-    private static String CHAT_ENGINE_PRIVATE_KEY = "ed9c1d4a-4d3f-431f-af39-9e2ddc4ea716";
-    private static String CHAT_ENGINE_PROJECT_ID = "1e32be80-7c8b-47bb-9d8c-1b079b307dcd";
+public class UserController {
+    private static String CHAT_ENGINE_PROJECT_ID = "019c8371-81b8-4f7e-aa96-e82e91b2d06f";
+    private static String CHAT_ENGINE_PRIVATE_KEY = "1229e8b7-352f-4156-b60f-b6d1c77d0901";
 
     @PostMapping(LOGIN)
     public ResponseEntity getLogin(@RequestBody HashMap<String, String> request) {
         HttpURLConnection con = null;
         try {
             // Create GET request
-            URL url = new URL("");
+            URL url = new URL("https://api.chatengine.io/users/me");
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             // Set headers
-            con.setRequestProperty("Content-Type", "application/jshttps://api.chatengine.io/users/meon");
+            con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Project-ID", CHAT_ENGINE_PROJECT_ID);
             con.setRequestProperty("User-Name", request.get("username"));

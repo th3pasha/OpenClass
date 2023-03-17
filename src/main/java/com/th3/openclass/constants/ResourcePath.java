@@ -16,6 +16,6 @@ public class ResourcePath
     public final static String PROFILE = "/profile";
 
     public final static String UPDATE = "/update";
-    public final static String GROUPCHAT = "/groupchat";
+    public final static String OPENCHAT = "/openchat";
 
 }

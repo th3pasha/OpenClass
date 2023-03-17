@@ -12,7 +12,8 @@ public enum ExceptionPayloadFactory {
     STUDENT_NOT_FOUND(2, HttpStatus.NOT_FOUND, "student.not.found"),
     FIELD_NOT_FOUND(3, HttpStatus.NOT_FOUND, "field.not.found"),
     ACCOUNT_EXISTS(5, HttpStatus.NOT_FOUND, "account.already.exists"),
-    ACCOUNT_NOT_FOUND(4, HttpStatus.NOT_FOUND, "account.not.found");
+    ACCOUNT_NOT_FOUND(4, HttpStatus.NOT_FOUND, "account.not.found"),
+    POST_NOT_FOUND(6, HttpStatus.NOT_FOUND, "post.not.found");
 
     private final Integer code;
     private final HttpStatus status;
