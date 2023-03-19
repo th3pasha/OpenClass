@@ -11,4 +11,9 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: 'true'
+  servlet:
+    multipart:
+      max-request-size: 500KB
+      max-file-size: 500KB
+
 

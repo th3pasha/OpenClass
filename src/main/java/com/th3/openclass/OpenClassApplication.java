@@ -6,6 +6,8 @@ import com.th3.openclass.model.Account;
 import com.th3.openclass.model.Student;
 import com.th3.openclass.repository.AccountRepository;
 import com.th3.openclass.repository.StudentRepository;
+import com.th3.openclass.service.file.FileStorageService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +23,8 @@ public class OpenClassApplication implements CommandLineRunner {
 
     @Autowired
     private AccountRepository accountRepository;
+    @Resource
+    FileStorageService storageService;
 
     public static void main(String[] args) {
         SpringApplication.run(OpenClassApplication.class, args);
@@ -37,5 +41,8 @@ public class OpenClassApplication implements CommandLineRunner {
         final Account account = Account.create(student);
         account.setRole(Role.USER);
         accountRepository.save(account);
+
+        storageService.init();
+
     }
 }
