@@ -15,6 +15,7 @@ public class PostDto
 {
     private String id;
     private String content;
+    private String postUrl;
     private List<VoteDto> votes;
     private Integer totalVotes;
 }

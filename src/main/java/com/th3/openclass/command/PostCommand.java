@@ -9,4 +9,5 @@ import lombok.Setter;
 public class PostCommand
 {
     private String content;
+    private String postUrl;
 }

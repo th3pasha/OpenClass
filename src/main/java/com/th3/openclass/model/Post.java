@@ -19,6 +19,9 @@ public class Post extends BaseEntity{
     @Column(name = "content")
     private String content;
 
+    @Column(name ="postUrl")
+    private String postUrl;
+
     @OneToMany(mappedBy = "post")
     private List<Vote> votes = new ArrayList<>();
 
@@ -30,6 +33,7 @@ public class Post extends BaseEntity{
         final Post post = new Post();
 
         post.content = postCommand.getContent();
+        post.postUrl = postCommand.getPostUrl();
         return post;
     }
     public void linkToStudent(Student student){

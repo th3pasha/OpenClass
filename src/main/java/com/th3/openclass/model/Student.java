@@ -5,6 +5,7 @@ import com.th3.openclass.command.StudentCommand;
 import com.th3.openclass.command.StudentUpdateCommand;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,7 +81,7 @@ public class Student extends BaseEntity{
             // init firstName
             first[i] = email.charAt(i);
         }
-        return new String(first);
+        return StringUtils.capitalize(new String(first));
     }
     public static String getFirstNameFromEmailStudentCommand(final StudentCommand studentCommand){
         // anas.abbal20@ump.ac.ma
@@ -100,7 +101,7 @@ public class Student extends BaseEntity{
             // init firstName
             first[i] = email.charAt(i);
         }
-        return new String(first);
+        return StringUtils.capitalize(new String(first));
     }
     public static String getLastNameFromEmail(final String email, int lengthFirstName){
         // anas.abbal20@ump.ac.ma
@@ -122,7 +123,7 @@ public class Student extends BaseEntity{
             last[cnt] = email.charAt(i);
             cnt++;
         }
-        return new String(last);
+        return StringUtils.capitalize(new String(last));
     }
     public Post addToStudent(final PostCommand postCommand){
         final Post post = Post.create(postCommand);
