@@ -43,6 +43,6 @@ public class OpenClassApplication implements CommandLineRunner {
         accountRepository.save(account);
 
         storageService.init();
-
+//        storageService.deleteAll();
     }
 }
