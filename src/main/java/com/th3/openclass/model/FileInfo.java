@@ -13,6 +13,14 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 public class FileInfo {
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -21,6 +29,11 @@ public class FileInfo {
     private String name;
     private String url;
 
+    public FileInfo(String id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
     public FileInfo(String name, String url) {
         this.name = name;
         this.url = url;

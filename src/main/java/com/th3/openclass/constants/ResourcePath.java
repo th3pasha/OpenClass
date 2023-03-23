@@ -18,4 +18,6 @@ public class ResourcePath
     public final static String UPDATE = "/update";
     public final static String OPENCHAT = "/openchat";
 
+    public final static String FILES = "/files";
+
 }

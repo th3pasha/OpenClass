@@ -45,6 +45,7 @@ public class FileStorageServiceImpl implements FileStorageService {
         }
     }
 
+
     @Override
     public Resource load(String filename) {
         try {
@@ -60,6 +61,23 @@ public class FileStorageServiceImpl implements FileStorageService {
             throw new RuntimeException("Error: " + e.getMessage());
         }
     }
+
+    public void delete(String filename) {
+        try {
+            Path file = root.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() && resource.getFile().delete()) {
+                // the file was deleted successfully
+                System.out.println("File deleted: " + filename);
+            } else {
+                throw new RuntimeException("Could not delete the file: " + filename);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error deleting the file: " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void deleteAll() {

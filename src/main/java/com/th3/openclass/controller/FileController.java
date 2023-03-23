@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import com.th3.openclass.model.FileInfo;
 import com.th3.openclass.model.ResponseMessage;
-import com.th3.openclass.model.Student;
 import com.th3.openclass.service.file.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -19,14 +18,15 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 import static com.th3.openclass.constants.ResourcePath.*;
 
-@Controller(V1 + AUTH + STUDENT + "/upload")
+@Controller
+@RequestMapping( V1 + AUTH + STUDENT + FILES)
 @CrossOrigin("*")
 public class FileController {
 
     @Autowired
     FileStorageService storageService;
 
-    @PostMapping(V1 + AUTH + STUDENT + "/upload")
+    @PostMapping()
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
@@ -43,7 +43,7 @@ public class FileController {
         }
     }
 
-    @GetMapping(V1 + AUTH + STUDENT + "/files")
+    @GetMapping()
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
@@ -56,7 +56,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 
-    @DeleteMapping(V1 + AUTH + STUDENT + "/files")
+    @DeleteMapping()
     public ResponseEntity<ResponseMessage> deleteFiles()
     {
         String message = "all files were deleted";
@@ -65,8 +65,16 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
     }
+    @DeleteMapping("/{filename}")
+    public ResponseEntity<ResponseMessage> delete(@PathVariable String filename)
+    {
+        String message = "the file "+ filename +" has been deleted.";
+        storageService.delete(filename);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+    }
 
-    @GetMapping(V1 + AUTH + STUDENT + "/files/{filename:.+}")
+    @GetMapping("/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = storageService.load(filename);

@@ -14,6 +14,8 @@ public interface FileStorageService {
 
     public Resource load(String filename);
 
+    public void delete(String filename);
+
     public void deleteAll();
 
     public Stream<Path> loadAll();

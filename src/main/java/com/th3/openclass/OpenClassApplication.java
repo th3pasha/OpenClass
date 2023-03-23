@@ -36,6 +36,8 @@ public class OpenClassApplication implements CommandLineRunner {
         studentCommand.setEmail("admin@ump.ac.ma");
         studentCommand.setPassword("123456789");
         final Student student = Student.create(studentCommand);
+        student.setFirstName("Admin");
+        student.setLastName("");
         studentRepository.save(student);
 
         final Account account = Account.create(student);
